@@ -19,3 +19,5 @@ class DashboardView(TemplateView):
 
 class AdminTemplate(TemplateView):
     template_name = "shopadmin/index.html"
+
+
