@@ -13,11 +13,15 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-
+from .models import *
+from .forms import *
 class DashboardView(TemplateView):
     template_name = "shop/index.html"
 
 class AdminTemplate(TemplateView):
     template_name = "shopadmin/index.html"
 
-
+class itemcreateview(CreateView):
+    model = item
+    template_name = "shopadmin/itemcreate.html"
+    form_class = itemcreateform
