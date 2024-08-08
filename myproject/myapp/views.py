@@ -19,7 +19,7 @@ class DashboardView(TemplateView):
     template_name = "shop/index.html"
 
 class AdminTemplate(TemplateView):
-    template_name = "shopadmin/index.html"
+    template_name = "shopadmin/base.html"
 
 class itemcreateview(CreateView):
     model = item
