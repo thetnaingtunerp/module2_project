@@ -7,4 +7,6 @@ urlpatterns = [
     path('AdminTemplate/', AdminTemplate.as_view(), name='AdminTemplate'),
 
     path('itemcreateview/', itemcreateview.as_view(), name='itemcreateview'),
+
+    path('itemview/', itemview.as_view(), name='itemview'),
 ]

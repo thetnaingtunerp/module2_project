@@ -22,6 +22,33 @@ class AdminTemplate(TemplateView):
     template_name = "shopadmin/base.html"
 
 class itemcreateview(CreateView):
-    model = item
+    # model = item
     template_name = "shopadmin/itemcreate.html"
     form_class = itemcreateform
+    success_url = reverse_lazy('myapp:itemcreateview')
+
+
+
+class itemview(View):
+    def get(self, request):
+        itm = item.objects.all()
+        form = itemcreateform()
+        context = {'itm':itm, 'form':form}
+        return render(request, 'shopadmin/itemcreate.html', context)
+
+    def post(self, request):
+        itemname = request.POST.get('itemname')
+        cat = request.POST.get('category')
+        price = request.POST.get('price')
+        description = request.POST.get('description')
+        photo1 = request.FILES['photo1']
+        photo2 = request.FILES['photo2']
+        photo3 = request.FILES['photo3']
+        photo4 = request.FILES['photo4']
+
+        cate = category.objects.get(id=int(cat))
+
+        itm = item(itemname=itemname, category=cate, price=price, description=description, photo1=photo1, photo2=photo2, photo3=photo3, photo4=photo4)
+        itm.save()
+        
+        return redirect('myapp:itemview')
