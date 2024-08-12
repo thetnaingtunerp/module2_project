@@ -15,6 +15,9 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 from .models import *
 from .forms import *
+
+
+# Banckend
 class DashboardView(TemplateView):
     template_name = "shop/index.html"
 
@@ -52,3 +55,15 @@ class itemview(View):
         itm.save()
         
         return redirect('myapp:itemview')
+
+
+# shop
+class shopview(View):
+    def get(self, request):
+        itm = item.objects.all()
+        cate = category.objects.all()
+        context = {'item': itm, 'cate': cate}
+        return render(request, 'shop/shopview.html', context)
+
+    def post(self, request):
+        pass
