@@ -57,6 +57,21 @@ class itemview(View):
         return redirect('myapp:itemview')
 
 
+class categoryview(View):
+    def get(self, request):
+        ct = category.objects.all()
+        form = categoryform()
+        context = {'ct':ct, 'form':form}
+        return render(request, 'shopadmin/categoryview.html', context)
+
+    def post(self, request):
+        itemname = request.POST.get('itemname')
+        ct = category.objects.all()
+        form = categoryform()
+        context = {'ct':ct, 'form':form}
+        return redirect('myapp:itemview')
+
+
 # shop
 class shopview(View):
     def get(self, request):
@@ -67,3 +82,11 @@ class shopview(View):
 
     def post(self, request):
         pass
+
+
+class productdetail(View):
+    def get(self, request, pk):
+        itm = item.objects.get(id=pk)
+        context = {'itm':itm}
+        return render(request, 'shop/product-detail.html', context)
+

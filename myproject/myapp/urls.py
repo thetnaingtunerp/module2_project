@@ -10,8 +10,10 @@ urlpatterns = [
     # Backend 
 
     path('itemview/', itemview.as_view(), name='itemview'),
+    path('categoryview/', categoryview.as_view(), name='categoryview'),
 
     # Frontend 
     path('', shopview.as_view(), name='shopview'),
+    path('productdetail/<int:pk>/', productdetail.as_view(), name='productdetail'),
     
 ]

@@ -1,0 +1,100 @@
+
+{% extends 'shopadmin/index.html' %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Form Elements</div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 col-lg-4">
+              
+              
+
+
+                <form method="post" enctype="multipart/form-data" action="{% url 'myapp:categoryview' %}">
+ 
+                    <!-- Security token -->
+                    {% csrf_token %}
+                 
+                    <!-- Using the formset -->
+                    {{ form.as_p }}
+                     
+                    <input type="submit" value="Submit" class="btn btn-success">
+                </form>
+
+
+
+
+            </div>
+            
+          </div>
+        </div>
+        <!-- <div class="card-action">
+          <button class="btn btn-success">Submit</button>
+          <button class="btn btn-danger">Cancel</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Basic</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            id="basic-datatables"
+            class="display table table-striped table-hover"
+          >
+            <thead>
+              <tr>
+                <th>Sr</th>
+                <th>categoryname</th>
+                <th>created_at</th>
+                
+                <th>:</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Sr</th>
+                <th>categoryname</th>
+                <th>created_at</th>
+               
+                <th>:</th>
+              </tr>
+
+            </tfoot>
+            <tbody>
+              {% for i in ct %}
+              <tr>
+                <td>
+                  {{i.id}}
+                  
+                </td>
+                <td>{{i.categoryname}}</td>
+                <td>{{i.created_at}}</td>
+                
+                <td>...</td>
+              </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock content %}

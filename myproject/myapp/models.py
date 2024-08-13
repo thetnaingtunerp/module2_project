@@ -22,7 +22,24 @@ class item(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+class ItmColor(models.Model):
+    items = models.ForeignKey(item, on_delete=models.CASCADE)
+    color = models.CharField(max_length=255,null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.color
+
+class ItmSize(models.Model):
+    items = models.ForeignKey(item, on_delete=models.CASCADE)
+    size = models.CharField(max_length=255,null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.size
+        
 
 class Cart(models.Model):
     usr = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)

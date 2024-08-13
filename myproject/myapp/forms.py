@@ -10,3 +10,13 @@ class itemcreateform(forms.ModelForm):
             'description': forms.TextInput(attrs={'class': 'form-control'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+
+class categoryform(forms.ModelForm):
+    class Meta:
+        model = category
+        fields = '__all__'
+        widgets = {
+            'categoryname': forms.TextInput(attrs={'class': 'form-control'}),
+           
+        }
