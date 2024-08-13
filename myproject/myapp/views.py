@@ -65,11 +65,14 @@ class categoryview(View):
         return render(request, 'shopadmin/categoryview.html', context)
 
     def post(self, request):
-        itemname = request.POST.get('itemname')
-        ct = category.objects.all()
-        form = categoryform()
-        context = {'ct':ct, 'form':form}
-        return redirect('myapp:itemview')
+        categoryname = request.POST.get('categoryname')
+        c = category(categoryname=categoryname)
+        c.save()
+        return redirect('myapp:categoryview')
+
+
+
+
 
 
 # shop
