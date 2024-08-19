@@ -2,3 +2,5 @@
 
 #django project for module 2
 #ubuntu2
+
+vscode
