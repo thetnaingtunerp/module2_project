@@ -5,10 +5,10 @@ class itemcreateform(forms.ModelForm):
         model = item
         fields = '__all__'
         widgets = {
-            'itemname': forms.TextInput(attrs={'class': 'form-control'}),
-            'category': forms.Select(attrs={'class': 'form-control'}),
-            'description': forms.TextInput(attrs={'class': 'form-control'}),
-            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'itemname': forms.TextInput(attrs={'class': 'form-control', 'required':'true'}),
+            'category': forms.Select(attrs={'class': 'form-control', 'required':'true'}),
+            'description': forms.TextInput(attrs={'class': 'form-control', 'required':'true'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'required':'true'}),
         }
 
 
@@ -17,6 +17,6 @@ class categoryform(forms.ModelForm):
         model = category
         fields = '__all__'
         widgets = {
-            'categoryname': forms.TextInput(attrs={'class': 'form-control'}),
+            'categoryname': forms.TextInput(attrs={'class': 'form-control', 'required':'true'}),
            
         }
