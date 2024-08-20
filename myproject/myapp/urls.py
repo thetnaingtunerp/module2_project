@@ -15,5 +15,6 @@ urlpatterns = [
     # Frontend 
     path('', shopview.as_view(), name='shopview'),
     path('productdetail/<int:pk>/', productdetail.as_view(), name='productdetail'),
+    path('addtocart/', addtocart.as_view(), name='addtocart'),
     
 ]

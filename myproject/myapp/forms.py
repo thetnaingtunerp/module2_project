@@ -20,3 +20,8 @@ class categoryform(forms.ModelForm):
             'categoryname': forms.TextInput(attrs={'class': 'form-control', 'required':'true'}),
            
         }
+
+
+class ULoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput())
+    password = forms.CharField(widget=forms.PasswordInput())

@@ -17,6 +17,41 @@ from .models import *
 from .forms import *
 
 
+
+class UserRequiredMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            pass
+        else:
+            return redirect('myapp:UserLoginView')
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UserLoginView(FormView):
+    template_name = 'login.html'
+    form_class = ULoginForm
+    success_url = reverse_lazy('myapp:DashboardView')
+
+    def form_valid(self, form):
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data['password']
+        usr = authenticate(username=username, password=password)
+
+        if usr is not None:
+            login(self.request, usr)
+
+        else:
+            return render(self.request, self.template_name, {'form': self.form_class, 'error': 'Invalid user login!'})
+        return super().form_valid(form)
+
+class UserLogoutView(View):
+    def get(self,request):
+        logout(request)
+        return redirect('myapp:UserLoginView')
+
+
+
+
 # Banckend
 class DashboardView(TemplateView):
     template_name = "shop/index.html"
@@ -90,6 +125,40 @@ class shopview(View):
 class productdetail(View):
     def get(self, request, pk):
         itm = item.objects.get(id=pk)
-        context = {'itm':itm}
+        icol = ItmColor.objects.filter(items=itm)
+        isize = ItmSize.objects.filter(items=itm)
+        context = {'itm':itm, 'icol':icol, 'isize':isize}
         return render(request, 'shop/product-detail.html', context)
+
+
+class addtocart(View):
+    def get(self, request):
+        itmid = request.GET.get('itmid')
+        isize = request.GET.get('isize')
+        icl = request.GET.get('icl')
+        qty = request.GET.get('qty')
+        iid = int(itmid)
+        iqty = int(qty)
+        # get item 
+        itm = item.objects.get(id=iid)
+        itm_id = itm.id
+        cart_id = self.request.session.get("cart_id", None)
+        if cart_id:
+            cart_obj = Cart.objects.get(id=cart_id)
+            print('card id')
+        else:
+            cart_obj = Cart.objects.create(total=0, usr=request.user)
+            self.request.session['cart_id'] = cart_obj.id
+            stotal = int(itm.price) * int(iqty)
+            
+            cartproduct = CartProduct.objects.create(cart=cart_obj, product=itm,
+                                                         rate=itm.price,
+                                                         color = icl,
+                                                         size = isize,
+                                                         quantity=iqty, subtotal=stotal,
+                                                        )
+        # print(cart_id)
+        return JsonResponse({'status':'success'})
+
+
 
