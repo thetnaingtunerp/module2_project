@@ -17,8 +17,8 @@ $("#itmdetail").on('click', '.addtobtn', function() {
         success: function(data){
       
             alert('Add to Cart Successfully');
-            // window.setTimeout(function(){ } ,2000);
-            //                 location.reload();      
+            window.setTimeout(function(){ } ,100);
+                            location.reload();      
         },
         error:function(){
             alert('Error contact to 09-969255445');

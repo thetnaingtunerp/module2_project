@@ -127,7 +127,10 @@ class productdetail(View):
         itm = item.objects.get(id=pk)
         icol = ItmColor.objects.filter(items=itm)
         isize = ItmSize.objects.filter(items=itm)
-        context = {'itm':itm, 'icol':icol, 'isize':isize}
+
+        cart_id = self.request.session.get('cart_id', None)
+        cart = Cart.objects.get(id=cart_id)
+        context = {'itm':itm, 'icol':icol, 'isize':isize, 'cart':cart}
         return render(request, 'shop/product-detail.html', context)
 
 
@@ -145,7 +148,7 @@ class addtocart(View):
         cart_id = self.request.session.get("cart_id", None)
         if cart_id:
             cart_obj = Cart.objects.get(id=cart_id)
-            print('card id')
+            print('card id have')
         else:
             cart_obj = Cart.objects.create(total=0, usr=request.user)
             self.request.session['cart_id'] = cart_obj.id
@@ -157,6 +160,7 @@ class addtocart(View):
                                                          size = isize,
                                                          quantity=iqty, subtotal=stotal,
                                                         )
+            print('cart create')
         # print(cart_id)
         return JsonResponse({'status':'success'})
 
