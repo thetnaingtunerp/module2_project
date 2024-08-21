@@ -314,7 +314,7 @@
 											<input type="number" class="crid" value="{{p.id}}" hidden>
 											<input type="number" class="cartid" value="{{cart.id}}" hidden>
 											
-											<input type="number" class="cqty mtext-104 txt-center cl3" value="{{p.quantity}}">
+											<input type="number" class="cqty mtext-104 cl3" value="{{p.quantity}}">
 											<!-- <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div> -->
@@ -375,22 +375,34 @@
 						
 
 						<div class="flex-w flex-t p-t-27 p-b-33">
-							<div class="size-208">
+							
+							<!-- <div class="size-208">
 								<span class="mtext-101 cl2">
 									Total:
 								</span>
 							</div>
 
+
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
 									{{cart.total}}
 								</span>
-							</div>
-						</div>
+							</div> -->
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+							<div class="bor8 bg0 m-b-12">
+								<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Enter Phone Number">
+							</div>
+
+							<div class="bor8 bg0 m-b-12">
+								<textarea name="" class="p-lr-15 plh3 stext-111" cols="20" rows="10" placeholder="Enter Address"></textarea>
+								<!-- <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country"> -->
+							</div>
+
+						</div>
+						<button type="button" class="flex-c-m cl0 bg3 size-116 bor14 hov-btn3 p-lr-15 stext-101 trans-04">Send to Order</button>
+						<!-- <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
-						</button>
+						</button> -->
 					</div>
 				</div>
 			</div>
