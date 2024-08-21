@@ -16,5 +16,7 @@ urlpatterns = [
     path('', shopview.as_view(), name='shopview'),
     path('productdetail/<int:pk>/', productdetail.as_view(), name='productdetail'),
     path('addtocart/', addtocart.as_view(), name='addtocart'),
+    path('cartview/', cartview.as_view(), name='cartview'),
+    path('cart_change_qty/', cart_change_qty.as_view(), name='cart_change_qty'),
     
 ]

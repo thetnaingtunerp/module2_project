@@ -115,7 +115,14 @@ class shopview(View):
     def get(self, request):
         itm = item.objects.all()
         cate = category.objects.all()
-        context = {'item': itm, 'cate': cate}
+        cart_id = self.request.session.get('cart_id', None)
+        if cart_id:
+            cart = Cart.objects.get(id=cart_id)
+            ccnt = CartProduct.objects.filter(cart=cart).count()
+        else:
+            cart = None
+            ccnt = 0
+        context = {'item': itm, 'cate': cate,'cart':cart, 'ccnt':ccnt}
         return render(request, 'shop/shopview.html', context)
 
     def post(self, request):
@@ -129,9 +136,52 @@ class productdetail(View):
         isize = ItmSize.objects.filter(items=itm)
 
         cart_id = self.request.session.get('cart_id', None)
-        cart = Cart.objects.get(id=cart_id)
-        context = {'itm':itm, 'icol':icol, 'isize':isize, 'cart':cart}
+        if cart_id:
+            cart = Cart.objects.get(id=cart_id)
+            ccnt = CartProduct.objects.filter(cart=cart).count()
+        else:
+            cart = None
+            ccnt = 0
+        
+        context = {'itm':itm, 'icol':icol, 'isize':isize, 'cart':cart, 'ccnt':ccnt}
         return render(request, 'shop/product-detail.html', context)
+
+
+class cartview(View):
+    def get(self, request):
+        cart_id = self.request.session.get('cart_id', None)
+        if cart_id:
+            cart = Cart.objects.get(id=cart_id)
+            ccnt = CartProduct.objects.filter(cart=cart).count()
+        else:
+            cart = None
+            ccnt = 0
+        
+        context = { 'cart':cart, 'ccnt':ccnt}
+        return render(request, 'shop/cartview.html', context)
+
+
+class cart_change_qty(View):
+    def get(self, request):
+        cpid = int(request.GET.get('cpid'))
+        cartid = int(request.GET.get('cartid'))
+        a3 = int(request.GET.get('a3'))
+
+        cart = Cart.objects.get(id=cartid)
+        cp = CartProduct.objects.get(id=cpid)
+
+        stotal = cp.rate * a3
+        cp_update = CartProduct.objects.filter(id=cpid)
+        upt= cp_update.update(quantity=a3, subtotal=stotal)
+
+        ctotal = cart.total - cp.subtotal
+        upt_total = ctotal + stotal
+        cart_upt = Cart.objects.filter(id=cartid).update(total=upt_total)
+
+
+        
+        return JsonResponse({'status':'success'})
+
 
 
 class addtocart(View):
@@ -148,7 +198,25 @@ class addtocart(View):
         cart_id = self.request.session.get("cart_id", None)
         if cart_id:
             cart_obj = Cart.objects.get(id=cart_id)
-            print('card id have')
+            # print('card id have')
+            this_product_in_cart = cart_obj.cartproduct_set.filter(product=itm)
+                # Product already exists in cart
+            if this_product_in_cart.exists():
+                
+                return JsonResponse({'status':'Item Already Existed in Cart......'})    
+            else:
+                stotal = int(itm.price) * int(iqty)
+            
+                cartproduct = CartProduct.objects.create(cart=cart_obj, product=itm,
+                                                         rate=itm.price,
+                                                         color = icl,
+                                                         size = isize,
+                                                         quantity=iqty, subtotal=stotal,
+                                                        )
+                cart_obj.total += stotal
+                cart_obj.save()
+                return JsonResponse({'status':'Your Item -> Add to Cart Success'})
+            
         else:
             cart_obj = Cart.objects.create(total=0, usr=request.user)
             self.request.session['cart_id'] = cart_obj.id
@@ -160,9 +228,11 @@ class addtocart(View):
                                                          size = isize,
                                                          quantity=iqty, subtotal=stotal,
                                                         )
-            print('cart create')
+            # print('cart create')
+            cart_obj.total += stotal
+            cart_obj.save()
         # print(cart_id)
-        return JsonResponse({'status':'success'})
+            return JsonResponse({'status':'Item Create in Your Cart....'})
 
 
 
