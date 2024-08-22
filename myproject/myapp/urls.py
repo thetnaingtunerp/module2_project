@@ -18,5 +18,6 @@ urlpatterns = [
     path('addtocart/', addtocart.as_view(), name='addtocart'),
     path('cartview/', cartview.as_view(), name='cartview'),
     path('cart_change_qty/', cart_change_qty.as_view(), name='cart_change_qty'),
+    path('send_order_to_admin/', send_order_to_admin.as_view(), name='send_order_to_admin'),
     
 ]

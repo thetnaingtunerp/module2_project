@@ -235,4 +235,17 @@ class addtocart(View):
             return JsonResponse({'status':'Item Create in Your Cart....'})
 
 
+class send_order_to_admin(View):
+    def get(self, request):
+        oid = int(request.GET.get('oid'))
+        phone = request.GET.get('phone')
+        caddress = request.GET.get('caddress')
+
+        cart_obj = Cart.objects.get(id=oid)
+        total = cart_obj.total
+        # print(total)
+        ord = Order.objects.create(cart= cart_obj, mobile=phone , shipping_address= caddress, total= total)
+        del self.request.session['cart_id']
+        return JsonResponse({'status':'success'})
+
 

@@ -1,4 +1,4 @@
-// console.log('add to cart');
+console.log('add to cart');
 
 // start btn 
 $("#itmdetail").on('click', '.addtobtn', function() {
@@ -61,4 +61,34 @@ $("#uptcartbtn").click(function(){
 });
 
 
+
+// // SaveData
+// $("#sentorder").click(function(){
+//     console.log('cl');
+// });
+
+
+// start order function 
+$("#customerdetail").on('click', '#sentorder', function() {
+    var cur = $(this).closest("#cdatil");
+    var phone = cur.find("#phone").val();
+    var caddress = cur.find("#caddress").val();
+    var oid = cur.find("#oid").val();
+
+    $.ajax({
+        url: "/send_order_to_admin/",
+        method: "GET",
+        data:{phone:phone, caddress:caddress, oid:oid},
+        success: function(data){
+            alert('Thank You for your purchase');
+            window.location.href = '/';
+                     
+        },
+        error:function(){
+            alert('Error contact to 09-969255445');
+        },
+                        
+      });//end ajax
+    
+});
 

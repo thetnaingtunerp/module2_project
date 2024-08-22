@@ -284,7 +284,7 @@
 
 	
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85">
+	<div class="bg0 p-t-75 p-b-85"  id="customerdetail">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -374,7 +374,7 @@
 
 						
 
-						<div class="flex-w flex-t p-t-27 p-b-33">
+						<div class="flex-w flex-t p-t-27 p-b-33" id="cdatil">
 							
 							<!-- <div class="size-208">
 								<span class="mtext-101 cl2">
@@ -389,25 +389,32 @@
 								</span>
 							</div> -->
 
-							<div class="bor8 bg0 m-b-12">
-								<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Enter Phone Number">
+							<!-- <div class="bor8 bg0 m-b-12">
+								<input class="stext-111 cl8 plh3 size-111 p-lr-15 phone" type="text" placeholder="Enter Phone Number">
 							</div>
 
 							<div class="bor8 bg0 m-b-12">
 								<textarea name="" class="p-lr-15 plh3 stext-111" cols="20" rows="10" placeholder="Enter Address"></textarea>
-								<!-- <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country"> -->
-							</div>
+								
+							</div> -->
 
+							<input type="number" id="oid" value="{{cart.id}}" hidden>
+							<input type="text" name="phone" id="phone" placeholder="Phone" class="form-control">
+							
+							<textarea name="address" id="caddress" cols="30" rows="10" placeholder="Address" class="form-control"></textarea>
+
+							<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04" id="sentorder">Send to Order</button>
 						</div>
-						<button type="button" class="flex-c-m cl0 bg3 size-116 bor14 hov-btn3 p-lr-15 stext-101 trans-04">Send to Order</button>
-						<!-- <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						
+						<!-- <button hidden class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
 						</button> -->
 					</div>
+					
 				</div>
 			</div>
 		</div>
-	</form>
+	</div>
 		
 	
 		
