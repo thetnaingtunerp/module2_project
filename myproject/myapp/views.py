@@ -106,8 +106,12 @@ class categoryview(View):
         return redirect('myapp:categoryview')
 
 
-
-
+class orderlistview(View):
+    def get(self, request):
+        ord = Order.objects.all()
+        context = {'ord':ord}
+        return render(request, 'shopadmin/orderlistview.html', context)
+        
 
 
 # shop
