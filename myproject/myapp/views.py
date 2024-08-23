@@ -28,9 +28,9 @@ class UserRequiredMixin(object):
 
 
 class UserLoginView(FormView):
-    template_name = 'login.html'
+    template_name = 'shop/login.html'
     form_class = ULoginForm
-    success_url = reverse_lazy('myapp:DashboardView')
+    success_url = reverse_lazy('myapp:shopview')
 
     def form_valid(self, form):
         username = form.cleaned_data.get('username')
@@ -151,7 +151,7 @@ class productdetail(View):
         return render(request, 'shop/product-detail.html', context)
 
 
-class cartview(View):
+class cartview(UserRequiredMixin,View):
     def get(self, request):
         cart_id = self.request.session.get('cart_id', None)
         if cart_id:

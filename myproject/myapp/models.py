@@ -69,5 +69,6 @@ class Order(models.Model):
     mobile = models.CharField(max_length=255,null=True, blank=True)
     discount = models.PositiveIntegerField(default=0)
     total = models.PositiveIntegerField()
+    status = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

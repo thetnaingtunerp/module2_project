@@ -1,1 +1,138 @@
-orderlistview
+
+{% extends 'shopadmin/index.html' %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">New Order</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            id="basic-datatables"
+            class="display table table-striped table-hover"
+          >
+            <thead>
+              <tr>
+                <th>Sr</th>
+                <th>user</th>
+                
+                
+                <th>total</th>
+                <th>created_at</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Sr</th>
+                <th>user</th>
+                
+               
+                <th>total</th>
+                <th>created_at</th>
+                <th>Detail</th>
+              </tr>
+
+            </tfoot>
+            <tbody>
+              {% for i in ord %}
+              <tr>
+                <td>
+                  {{i.id}}
+                  
+                </td>
+                <td>{{i.cart.usr}}</td>
+                
+                
+                <td>
+                    {{i.total}}
+                </td>
+                <td>{{i.created_at}}</td>
+                <th>
+                    <a href="#">view</a>
+                </th>
+              </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">All Order</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            id="all-ordertbl"
+            class="display table table-striped table-hover"
+          >
+            <thead>
+              <tr>
+                <th>Sr</th>
+                <th>user</th>
+                <th>total</th>
+                <th>created_at</th>
+                
+               
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Sr</th>
+                <th>user</th>
+                <th>total</th>
+                <th>created_at</th>
+               
+                
+              </tr>
+
+            </tfoot>
+            <tbody>
+              {% for i in ord %}
+              <tr>
+                <td>
+                  {{i.id}}
+                  
+                </td>
+                <td>{{i.cart.usr}}</td>
+                
+                
+                <td>
+                    {{i.total}}
+                    
+                </td>
+                <td>{{i.created_at}}</td>
+              </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock content %}

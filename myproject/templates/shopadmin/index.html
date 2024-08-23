@@ -136,15 +136,15 @@
               </li>
               
               <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#charts">
+                <a data-bs-toggle="collapse" href="#order">
                   <i class="far fa-chart-bar"></i>
                   <p>Order</p>
                   <span class="caret"></span>
                 </a>
-                <div class="collapse" id="charts">
+                <div class="collapse" id="order">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="#">
+                      <a href="{% url 'myapp:orderlistview' %}">
                         <span class="sub-item">order list</span>
                       </a>
                     </li>
@@ -228,9 +228,9 @@
           <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
-              <a href="index.html" class="logo">
+              <a href="#" class="logo">
                 <img
-                  src="assets/img/kaiadmin/logo_light.svg"
+                  src="{% static 'shopadmin/assets/img/kaiadmin/logo_light.svg' %}"
                   alt="navbar brand"
                   class="navbar-brand"
                   height="20"
@@ -555,7 +555,7 @@
                   >
                     <div class="avatar-sm">
                       <img
-                        src="assets/img/profile.jpg"
+                        src="{%static 'shopadmin/assets/img/profile.jpg' %}"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
@@ -571,7 +571,7 @@
                         <div class="user-box">
                           <div class="avatar-lg">
                             <img
-                              src="assets/img/profile.jpg"
+                              src="{%static 'shopadmin/assets/img/profile.jpg' %}"
                               alt="image profile"
                               class="avatar-img rounded"
                             />
@@ -683,6 +683,8 @@
 
     <script>
       $(document).ready(function () {
+        $("#all-ordertbl").DataTable({});
+
         $("#basic-datatables").DataTable({});
 
         $("#multi-filter-select").DataTable({
