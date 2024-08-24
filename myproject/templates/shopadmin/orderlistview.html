@@ -93,7 +93,7 @@
                 <th>user</th>
                 <th>total</th>
                 <th>created_at</th>
-                
+                <th>detail</th>
                
               </tr>
             </thead>
@@ -103,7 +103,7 @@
                 <th>user</th>
                 <th>total</th>
                 <th>created_at</th>
-               
+                <th>detail</th>
                 
               </tr>
 
@@ -123,6 +123,7 @@
                     
                 </td>
                 <td>{{i.created_at}}</td>
+                <td><a href="{% url 'myapp:OrderDetailView' i.id %}">view</a></td>
               </tr>
               {% endfor %}
               
@@ -134,5 +135,6 @@
   </div>
 
 
+  
 
 {% endblock content %}

@@ -6,3 +6,6 @@ admin.site.register(ItmColor)
 admin.site.register(ItmSize)
 admin.site.register(CartProduct)
 admin.site.register(Order)
+admin.site.register(item)
+
+
