@@ -63,7 +63,7 @@
                 </td>
                 <td>{{i.created_at}}</td>
                 <th>
-                    <a href="#">view</a>
+                    <a href="{% url 'myapp:OrderDetailView' i.id %}">view</a>
                 </th>
               </tr>
               {% endfor %}
@@ -79,7 +79,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">All Order</h4>
+        <h4 class="card-title">Completed Order</h4>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -109,7 +109,7 @@
 
             </tfoot>
             <tbody>
-              {% for i in ord %}
+              {% for i in allord %}
               <tr>
                 <td>
                   {{i.id}}

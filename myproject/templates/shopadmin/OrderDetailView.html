@@ -1,0 +1,74 @@
+
+{% extends 'shopadmin/index.html' %}
+{% block content %}
+
+
+
+
+
+<div class="row">
+    
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Order No.[ {{ord_obj.id}} ]</h4>
+        
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+            <h6>Name : {{ord_obj.mobile}}</h6> 
+
+            
+          <table
+                      class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4"
+                    >
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Item(Color)</th>
+                          <th scope="col">Size</th>
+                          <th scope="col">Rate</th>
+                          <th scope="col">Qty</th>
+                          <th scope="col">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+{% for p in ord_obj.cart.cartproduct_set.all %}
+
+
+                        <tr>
+                          <td>{{forloop.counter}}</td>
+                          <td>{{p.product.itemname}}--({{p.color}})</td>
+                          <td>{{p.size}}</td>
+                          <td>{{p.rate}}</td>
+                          <td>{{p.quantity}}</td>
+                          <td>{{p.subtotal}}</td>
+                        </tr>
+                       
+{% endfor %} 
+<tr>
+    <!-- <td></td> -->
+    <td colspan="5" class="text-center">Total Amount</td>
+    <td>{{ord_obj.total}}</td>
+  </tr>
+                      </tbody>
+                    </table>
+
+                       
+                    <p>Address : {{ord_obj.shipping_address}}</p>
+                    <!-- <a href="#" >Completed</a> -->
+                    <button type="button" class="btn btn-sm btn-primary">Completed</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+{% endblock content %}

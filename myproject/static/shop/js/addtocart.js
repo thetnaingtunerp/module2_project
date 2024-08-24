@@ -21,7 +21,7 @@ $("#itmdetail").on('click', '.addtobtn', function() {
                             location.reload();      
         },
         error:function(){
-            alert('Error contact to 09-969255445');
+            alert('Please Login Account');
         },
         
                         

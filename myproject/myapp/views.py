@@ -108,10 +108,23 @@ class categoryview(View):
 
 class orderlistview(View):
     def get(self, request):
-        ord = Order.objects.all()
-        context = {'ord':ord}
+        ord = Order.objects.filter(status=0)
+        allord = Order.objects.filter(status=1)
+        context = {'ord':ord, 'allord':allord}
         return render(request, 'shopadmin/orderlistview.html', context)
         
+
+class OrderDetailView(UserRequiredMixin,DetailView):
+    template_name = 'shopadmin/OrderDetailView.html'
+    model = Order
+    context_object_name = 'ord_obj'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['allstatus'] = STATUS
+
+        return context
+
 
 
 # shop
