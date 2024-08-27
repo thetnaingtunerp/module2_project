@@ -54,7 +54,7 @@ class UserLogoutView(View):
 
 # Banckend
 class DashboardView(TemplateView):
-    template_name = "shop/index.html"
+    template_name = "shopadmin/dashboard.html"
 
 class AdminTemplate(TemplateView):
     template_name = "shopadmin/base.html"
@@ -125,6 +125,12 @@ class OrderDetailView(UserRequiredMixin,DetailView):
 
         return context
 
+
+class order_status_change(View):
+    def get(self, request):
+        ordid = int(request.GET.get('ordid'))
+        upt = Order.objects.filter(id=ordid).update(status=1)
+        return JsonResponse({'status':'success'})
 
 
 # shop

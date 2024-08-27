@@ -16,6 +16,7 @@ urlpatterns = [
     path('categoryview/', categoryview.as_view(), name='categoryview'),
     path('orderlistview/', orderlistview.as_view(), name='orderlistview'),
     path('OrderDetailView/<int:pk>/', OrderDetailView.as_view(), name='OrderDetailView'),
+    path('order_status_change/', order_status_change.as_view(), name='order_status_change'),
 
     # Frontend 
     path('', shopview.as_view(), name='shopview'),

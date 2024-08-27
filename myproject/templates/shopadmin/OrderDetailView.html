@@ -15,7 +15,7 @@
         
       </div>
       <div class="card-body">
-        <div class="table-responsive">
+        <div class="table-responsive" id="ordDetail">
             <h6>Name : {{ord_obj.mobile}}</h6> 
 
             
@@ -53,12 +53,19 @@
     <td>{{ord_obj.total}}</td>
   </tr>
                       </tbody>
-                    </table>
+          </table>
 
                        
+          <div class="shippingaddress">
                     <p>Address : {{ord_obj.shipping_address}}</p>
+                    <input type="number" value="{{ord_obj.id}}" id="ordobj_id" hidden>
                     <!-- <a href="#" >Completed</a> -->
-                    <button type="button" class="btn btn-sm btn-primary">Completed</button>
+                     {% if ord_obj.status == 0 %}
+                    <button type="button" class="btn btn-sm btn-primary setCompleteBtn">Set Completed</button>
+                    {% else %}
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Completed</button>
+                    {% endif %}
+          </div>
 
 
         </div>
