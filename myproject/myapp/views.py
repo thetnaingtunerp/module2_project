@@ -53,7 +53,34 @@ class UserLogoutView(View):
 
 
 # Banckend
-class DashboardView(TemplateView):
+
+class AdminRequiredMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            pass
+        else:
+            return redirect('myapp:AdminLoginView')
+        return super().dispatch(request, *args, **kwargs)
+
+class AdminLoginView(FormView):
+    template_name = 'shopadmin/login.html'
+    form_class = ULoginForm
+    success_url = reverse_lazy('myapp:DashboardView')
+
+    def form_valid(self, form):
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data['password']
+        usr = authenticate(username=username, password=password)
+
+        if usr is not None:
+            login(self.request, usr)
+
+        else:
+            return render(self.request, self.template_name, {'form': self.form_class, 'error': 'Invalid user login!'})
+        return super().form_valid(form)
+
+
+class DashboardView(AdminRequiredMixin,TemplateView):
     template_name = "shopadmin/dashboard.html"
 
 class AdminTemplate(TemplateView):
@@ -114,7 +141,7 @@ class orderlistview(View):
         return render(request, 'shopadmin/orderlistview.html', context)
         
 
-class OrderDetailView(UserRequiredMixin,DetailView):
+class OrderDetailView(AdminRequiredMixin,DetailView):
     template_name = 'shopadmin/OrderDetailView.html'
     model = Order
     context_object_name = 'ord_obj'

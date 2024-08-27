@@ -5,6 +5,7 @@ app_name = 'myapp'
 urlpatterns = [
     path('login', UserLoginView.as_view(), name = 'UserLoginView'),
     path('logout/', UserLogoutView.as_view(), name='UserLogoutView'),
+    path('AdminLoginView/', AdminLoginView.as_view(), name='AdminLoginView'),
     
     path('DashboardView/', DashboardView.as_view(), name='DashboardView'),
     path('AdminTemplate/', AdminTemplate.as_view(), name='AdminTemplate'),
