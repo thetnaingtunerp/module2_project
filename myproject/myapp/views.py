@@ -41,7 +41,8 @@ class UserLoginView(FormView):
             login(self.request, usr)
 
         else:
-            return render(self.request, self.template_name, {'form': self.form_class, 'error': 'Invalid user login!'})
+            # fm = RegisterForm()
+            return render(self.request, self.template_name, {'form': self.form_class, 'error': 'Invalid user login!', })
         return super().form_valid(form)
 
 class UserLogoutView(View):
@@ -50,6 +51,26 @@ class UserLogoutView(View):
         return redirect('myapp:UserLoginView')
 
 
+def register(response):
+    if response.method == "POST":
+	    form = RegisterForm(response.POST)
+	    if form.is_valid():
+	        form.save()
+
+	        return redirect("/")
+    else:
+	    form = RegisterForm()
+    return render(response, "shop/register.html", {"form":form})
+
+
+class register_customer(View):
+    def get(self, request):
+        fullname = request.GET.get('fullname')
+        uname = request.GET.get('uname')
+        regpass = request.GET.get('regpass')
+        usr = User.objects.create(username=uname, password=regpass, first_name=fullname)
+        print('register_customer')
+        return JsonResponse({'status':'user adding successfully'})
 
 
 # Banckend

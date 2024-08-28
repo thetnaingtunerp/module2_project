@@ -6,6 +6,9 @@ urlpatterns = [
     path('login', UserLoginView.as_view(), name = 'UserLoginView'),
     path('logout/', UserLogoutView.as_view(), name='UserLogoutView'),
     path('AdminLoginView/', AdminLoginView.as_view(), name='AdminLoginView'),
+    path('register/', views.register, name='register'),
+
+    path('register_customer/', register_customer.as_view(), name='register_customer'),
     
     path('DashboardView/', DashboardView.as_view(), name='DashboardView'),
     path('AdminTemplate/', AdminTemplate.as_view(), name='AdminTemplate'),
