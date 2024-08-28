@@ -113,7 +113,7 @@
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#tables">
                   <i class="fas fa-table"></i>
-                  <p>Item</p>
+                  <p>Item Setup</p>
                   <span class="caret"></span>
                 </a>
                 <div class="collapse" id="tables">
@@ -129,15 +129,11 @@
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <span class="sub-item">Color</span>
+                      <a href="{% url 'myapp:color_and_size' %}">
+                        <span class="sub-item">Color & Size</span>
                       </a>
                     </li>
-                    <li>
-                      <a href="#">
-                        <span class="sub-item">Size</span>
-                      </a>
-                    </li>
+                    
                   </ul>
                 </div>
               </li>
@@ -145,7 +141,7 @@
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#order">
                   <i class="far fa-chart-bar"></i>
-                  <p>Order</p>
+                  <p>Report</p>
                   <span class="caret"></span>
                 </a>
                 <div class="collapse" id="order">
@@ -506,7 +502,7 @@
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Hizrian</span>
+                      <span class="fw-bold">{{request.user}}</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -533,13 +529,13 @@
                       </li>
                       <li>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Profile</a>
+                        <!-- <a class="dropdown-item" href="#">My Profile</a>
                         <a class="dropdown-item" href="#">My Balance</a>
                         <a class="dropdown-item" href="#">Inbox</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Account Setting</a>
+                        <a class="dropdown-item" href="#">Account Setting</a> -->
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
                       </li>
                     </div>
                   </ul>
@@ -702,12 +698,57 @@
           },
           error:function(){
             alert('Please Check Again');
-        },
-        
-                        
+        },                
       });//end ajax
 
       });
+
+//Add Color and Size 
+      $("#addColorSize").on('click', '#addColorBtn', function() {
+        var cur = $(this).closest(".addform");
+        var icol = cur.find("#icolor").val();
+        var itm = cur.find("#largeSelect").val();
+        $.ajax({
+          url: "/add_color/",
+          method: "GET",
+          data:{itm:itm, icol:icol},
+          success: function(data){
+            // console.log(data.status);
+            alert(data.status);
+            window.setTimeout(function(){ } ,100);
+                            location.reload(); 
+                
+          },
+          error:function(){
+            alert('Please Check Again');
+        },                
+      });//end ajax
+        
+      });
+
+
+      $("#addColorSize").on('click', '#addSizeBtn', function() {
+        var cur = $(this).closest(".addform");
+        var isize = cur.find("#isize").val();
+        var itm = cur.find("#largeSelect").val();
+        $.ajax({
+          url: "/add_size/",
+          method: "GET",
+          data:{itm:itm, isize:isize},
+          success: function(data){
+            // console.log(data.status);
+            alert(data.status);
+            window.setTimeout(function(){ } ,100);
+                            location.reload(); 
+                
+          },
+          error:function(){
+            alert('Please Check Again');
+        },                
+      });//end ajax
+        
+      });
+
 
 
 
@@ -719,6 +760,9 @@
 
 
     </script>
+
+
+    
 
 
   </body>

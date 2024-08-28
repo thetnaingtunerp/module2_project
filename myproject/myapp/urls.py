@@ -15,6 +15,12 @@ urlpatterns = [
 
     path('itemview/', itemview.as_view(), name='itemview'),
     path('categoryview/', categoryview.as_view(), name='categoryview'),
+    path('color_and_size/', color_and_size.as_view(), name='color_and_size'),
+    path('add_color/', add_color.as_view(), name='add_color'),
+    path('add_size/', add_size.as_view(), name='add_size'),
+
+
+
     path('orderlistview/', orderlistview.as_view(), name='orderlistview'),
     path('OrderDetailView/<int:pk>/', OrderDetailView.as_view(), name='OrderDetailView'),
     path('order_status_change/', order_status_change.as_view(), name='order_status_change'),

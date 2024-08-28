@@ -80,8 +80,18 @@ class AdminLoginView(FormView):
         return super().form_valid(form)
 
 
-class DashboardView(AdminRequiredMixin,TemplateView):
-    template_name = "shopadmin/dashboard.html"
+class DashboardView(AdminRequiredMixin,View):
+    def get(self, request):
+        usr = User.objects.all()
+        usrcount = usr.count()
+        order = Order.objects.filter(status=0).count()
+        visitor = Order.objects.all().count()
+        queryset = Order.objects.all()
+        ord_history = Order.objects.all().order_by('status')[0:10]
+        sum = queryset.aggregate(Sum('total'))['total__sum']
+        context = {'usr':usr, 'usrcount':usrcount, 'order':order ,'visitor':visitor, 'sum':sum, 'ord_history':ord_history}
+        return render(request, 'shopadmin/dashboard.html', context)
+    
 
 class AdminTemplate(TemplateView):
     template_name = "shopadmin/base.html"
@@ -92,6 +102,30 @@ class itemcreateview(CreateView):
     form_class = itemcreateform
     success_url = reverse_lazy('myapp:itemcreateview')
 
+
+class color_and_size(View):
+    def get(self, request):
+        itm = item.objects.all()
+        context = {'itm':itm}
+        return render(request, 'shopadmin/color_size.html', context)
+
+class add_color(View):
+    def get(self, request):
+        itm = int(request.GET.get('itm'))
+        icol = request.GET.get('icol')
+        itm_obj = item.objects.get(id=itm)
+        addcolor = ItmColor(items=itm_obj, color=icol)
+        addcolor.save()
+        return JsonResponse({'status':'add color successfully'})
+
+class add_size(View):
+    def get(self, request):
+        itm = int(request.GET.get('itm'))
+        isize = request.GET.get('isize')
+        itm_obj = item.objects.get(id=itm)
+        size = ItmSize(items=itm_obj, size=isize)
+        size.save()
+        return JsonResponse({'status':'adding item size successfully'})
 
 
 class itemview(View):
